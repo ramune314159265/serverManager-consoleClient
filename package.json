@@ -1,0 +1,15 @@
+{
+  "name": "servermanager-consoleclient",
+  "version": "1.0.0",
+  "description": "servermanager console client for CLI",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ramune314159265",
+  "license": "ISC",
+  "dependencies": {
+    "eslint": "^8.57.0",
+    "websocket": "^1.0.34"
+  }
+}
