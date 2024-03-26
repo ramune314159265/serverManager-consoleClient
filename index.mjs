@@ -2,17 +2,17 @@ import { program } from 'commander'
 import WebSocket from 'websocket'
 
 program
-	.option('-s, --serverOrigin <originURI>', '接続先', 'localhost:9000')
+	.option('-s, --hostname <hostname>', '接続先', 'localhost:9000')
 	.option('-i, --serverId <serverId>', 'サーバーID')
 
 program.parse(process.argv)
 
 const argOptions = program.opts()
-const apiOrigin = argOptions.serverOrigin
+const apiHostname = argOptions.hostname
 const serverId = argOptions.serverId
-console.log(`connecting to ${apiOrigin}, ${serverId} server`)
+console.log(`connecting to ${apiHostname}, ${serverId} server`)
 
-const consoleHistory = (await (await fetch(`http://${apiOrigin}/api/v1/servers/${serverId}/console/history`)).json()).content
+const consoleHistory = (await (await fetch(`http://${apiHostname}/api/v1/servers/${serverId}/console/history`)).json()).content
 if (consoleHistory === 'not found') {
 	throw new Error('not found')
 }
@@ -47,4 +47,4 @@ wsClient.on('connect', connection => {
 	})
 })
 
-wsClient.connect(`ws://${apiOrigin}/api/v1/servers/${serverId}/console/ws/`)
+wsClient.connect(`ws://${apiHostname}/api/v1/servers/${serverId}/console/ws/`)
