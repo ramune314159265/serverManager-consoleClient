@@ -4,7 +4,8 @@
   "description": "servermanager console client for CLI",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cls && node index.mjs"
   },
   "author": "ramune314159265",
   "license": "ISC",
