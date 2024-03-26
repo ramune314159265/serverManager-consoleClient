@@ -26,6 +26,7 @@ const wsClient = new WebSocket.client()
 wsClient.on('connect', connection => {
 	connection.on('close', ch => {
 		console.log(`connection closed ${ch}`)
+		process.exit()
 	})
 	connection.on('message', message => {
 		if (message.type !== 'utf8') {
