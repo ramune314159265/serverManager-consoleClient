@@ -25,6 +25,7 @@ const wsClient = new WebSocket.client()
 
 wsClient.on('connect', connection => {
 	connection.on('close', ch => {
+		process.stdout.write('\n')
 		console.log(`connection closed ${ch}`)
 		process.exit()
 	})
