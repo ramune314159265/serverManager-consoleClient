@@ -3,9 +3,8 @@ import WebSocket from 'websocket'
 
 program
 	.option('-s, --hostname <hostname>', '接続先', 'localhost:9000')
-	.option('-i, --serverId <serverId>', 'サーバーID')
-
-program.parse(process.argv)
+	.requiredOption('-i, --serverId <serverId>', 'サーバーID')
+	.parse(process.argv)
 
 const argOptions = program.opts()
 const apiHostname = argOptions.hostname
