@@ -7,10 +7,9 @@ program
 	.option('-s, --hostname <hostname>', '接続先')
 	.option('-i, --serverId <serverId>', 'サーバーID')
 	.parse(process.argv)
-
 const argOptions = program.opts()
-const apiHostname = argOptions.hostname ?? question('API hostname :')
-const serverId = argOptions.serverId ?? question('serverID :')
+const apiHostname = argOptions.hostname ? argOptions.hostname : question('API hostname :')
+const serverId = argOptions.serverId ? argOptions.serverId : question('serverID :')
 console.log(`connecting to ${apiHostname}, ${serverId} server...`)
 
 const consoleHistory = (await (await fetch(`http://${apiHostname}/api/v1/servers/${serverId}/console/history`)).json()).content
