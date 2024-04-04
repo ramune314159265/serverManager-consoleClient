@@ -1,14 +1,15 @@
 import { program } from 'commander'
 import WebSocket from 'websocket'
+import { question } from "readline-sync"
 
 program
-	.option('-s, --hostname <hostname>', '接続先', 'localhost:9000')
-	.requiredOption('-i, --serverId <serverId>', 'サーバーID')
+	.option('-s, --hostname <hostname>', '接続先')
+	.option('-i, --serverId <serverId>', 'サーバーID')
 	.parse(process.argv)
 
 const argOptions = program.opts()
-const apiHostname = argOptions.hostname
-const serverId = argOptions.serverId
+const apiHostname = argOptions.hostname ?? question('API hostname :')
+const serverId = argOptions.serverId ?? question('serverID :')
 console.log(`connecting to ${apiHostname}, ${serverId} server`)
 
 const consoleHistory = (await (await fetch(`http://${apiHostname}/api/v1/servers/${serverId}/console/history`)).json()).content
