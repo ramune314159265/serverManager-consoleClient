@@ -1,6 +1,7 @@
 import { program } from 'commander'
 import WebSocket from 'websocket'
 import { question } from "readline-sync"
+import cls from 'clear'
 
 program
 	.option('-s, --hostname <hostname>', '接続先')
@@ -10,12 +11,13 @@ program
 const argOptions = program.opts()
 const apiHostname = argOptions.hostname ?? question('API hostname :')
 const serverId = argOptions.serverId ?? question('serverID :')
-console.log(`connecting to ${apiHostname}, ${serverId} server`)
+console.log(`connecting to ${apiHostname}, ${serverId} server...`)
 
 const consoleHistory = (await (await fetch(`http://${apiHostname}/api/v1/servers/${serverId}/console/history`)).json()).content
 if (consoleHistory === 'not found') {
 	throw new Error('not found')
 }
+cls()
 process.stdout.write(consoleHistory)
 process.stdin.setRawMode(true)
 process.stdin.resume()
