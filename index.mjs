@@ -1,6 +1,6 @@
 import { program } from 'commander'
 import WebSocket from 'websocket'
-import { question } from "readline-sync"
+import { input } from "@inquirer/prompts"
 import cls from 'clear'
 
 program
@@ -8,8 +8,8 @@ program
 	.option('-i, --serverId <serverId>', 'サーバーID')
 	.parse(process.argv)
 const argOptions = program.opts()
-const apiHostname = argOptions.hostname ? argOptions.hostname : question('API hostname :')
-const serverId = argOptions.serverId ? argOptions.serverId : question('serverID :')
+const apiHostname = argOptions.hostname ? argOptions.hostname : await input({ message: 'API hostname :' })
+const serverId = argOptions.serverId ? argOptions.serverId : await input({ message: 'serverID :' })
 console.log(`connecting to ${apiHostname}, ${serverId} server...`)
 
 const consoleHistory = (await (await fetch(`http://${apiHostname}/api/v1/servers/${serverId}/console/history`)).json()).content
