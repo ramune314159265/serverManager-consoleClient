@@ -1,6 +1,6 @@
 import { program } from 'commander'
 import WebSocket from 'websocket'
-import { input } from "@inquirer/prompts"
+import { input, select } from "@inquirer/prompts"
 import cls from 'clear'
 
 program
@@ -9,7 +9,17 @@ program
 	.parse(process.argv)
 const argOptions = program.opts()
 const apiHostname = argOptions.hostname ? argOptions.hostname : await input({ message: 'API hostname :' })
-const serverId = argOptions.serverId ? argOptions.serverId : await input({ message: 'serverID :' })
+const serverId = argOptions.serverId ? argOptions.serverId : await select({
+	message: 'server :',
+	suffix: 'Use arrow keys',
+	choices: (await (await fetch(`http://${apiHostname}/api/v1/servers/`)).json())
+		.map(server => {
+			return {
+				name: `${server.status.padEnd(7, ' ')} ${server.name} (${server.id})`,
+				value: `${server.id}`
+			}
+		})
+})
 console.log(`connecting to ${apiHostname}, ${serverId} server...`)
 
 const consoleHistory = (await (await fetch(`http://${apiHostname}/api/v1/servers/${serverId}/console/history`)).json()).content
