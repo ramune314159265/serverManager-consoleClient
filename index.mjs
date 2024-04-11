@@ -18,7 +18,9 @@ const serverId = argOptions.serverId ? argOptions.serverId : await select({
 				name: `${server.status.padEnd(7, ' ')} ${server.name} (${server.id})`,
 				value: `${server.id}`
 			}
-		})
+		}),
+	pageSize: process.stdout.columns - 5,
+	loop: false
 })
 console.log(`connecting to ${apiHostname}, ${serverId} server...`)
 
