@@ -12,7 +12,7 @@ const apiHostname = argOptions.hostname ? argOptions.hostname : await input({ me
 const serverId = argOptions.serverId ? argOptions.serverId : await select({
 	message: 'server :',
 	suffix: 'Use arrow keys',
-	choices: (await (await fetch(`http://${apiHostname}/api/v1/servers/`)).json())
+	choices: (await (await fetch(`http://${apiHostname}/api/v2/servers/`)).json())
 		.map(server => {
 			return {
 				name: `${server.status.padEnd(7, ' ')} ${server.name} (${server.id})`,
